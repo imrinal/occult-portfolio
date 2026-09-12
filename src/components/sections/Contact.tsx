@@ -1,8 +1,8 @@
-import { PORTFOLIO_DATA } from '../../data';
+import React from 'react';
 import { GlassCard } from '../layout/GlassCard';
 import { Mail, FileText, Send } from 'lucide-react';
 
-export const Contact = () => {
+export const Contact: React.FC = () => {
   return (
     <section id="contact" className="py-24 px-6 max-w-4xl mx-auto">
       <div className="text-center mb-12">
@@ -19,9 +19,9 @@ export const Contact = () => {
             Access the complete architectural document of technical proficiencies, research publications, and career milestones.
           </p>
           <a
-            href="#"
+            href="/resume.pdf"
+            download
             className="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-medium transition-all shadow-lg shadow-emerald-600/20"
-            onClick={(e) => { e.preventDefault(); alert("Resume download link placeholder. Attach your PDF resume file!"); }}
           >
             Download PDF Resume
           </a>
