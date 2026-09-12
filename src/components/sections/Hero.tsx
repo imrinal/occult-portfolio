@@ -18,7 +18,7 @@ export const Hero: React.FC = () => {
           
           {/* Desktop Banner - Automatically displays on md screens and up */}
           <img 
-            src="/src/assets/desk-hero.png" 
+            src="/desk-hero.png"
             alt="Mrinal Paul - Occult Tech Architect"
             className="hidden md:block w-full h-full object-cover"
             onError={(e) => {
@@ -28,7 +28,7 @@ export const Hero: React.FC = () => {
           
           {/* Mobile Banner - Automatically displays on smaller screen sizes */}
           <img 
-            src="/src/assets/mobile-hero.png" 
+            src="/mobile-hero.png"
             alt="Mrinal Paul - Occult Tech Architect"
             className="block md:hidden w-full h-full object-cover"
             onError={(e) => {
