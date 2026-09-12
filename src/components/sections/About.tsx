@@ -11,7 +11,7 @@ export const About: React.FC = () => {
         <h2 className="text-[11px] uppercase tracking-[0.3em] text-emerald-600 dark:text-emerald-400 font-semibold mb-1">
           Human Matrix & Core Philosophy
         </h2>
-        <h3 className="text-2xl md:text-3xl font-brand font-brand font-bold text-slate-900 dark:text-silver-100 tracking-wide">
+        <h3 className="text-2xl md:text-3xl font-brand font-bold text-slate-900 dark:text-silver-100 tracking-wide">
           Who I Am & What Drives Me
         </h3>
       </div>
@@ -39,7 +39,7 @@ export const About: React.FC = () => {
               </p>
             </GlassCard>
 
-            {/* Role Strip placed below Bio, with icons above writing and increased font size */}
+            {/* Role Strip placed below Bio */}
             <GlassCard className="w-full border-emerald-500/20 bg-white/40 dark:bg-black/40 backdrop-blur-2xl py-3 px-4 shrink-0">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center text-center divide-y md:divide-y-0 md:divide-x divide-slate-200/50 dark:divide-white/10">
                 
@@ -84,10 +84,10 @@ export const About: React.FC = () => {
               
               <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/60 via-transparent to-transparent z-10 pointer-events-none" />
 
-              {/* Photo Container */}
+              {/* Photo Container with fixed public path */}
               <div className="relative w-full flex-1 min-h-[380px] lg:min-h-[440px] rounded-xl overflow-hidden border border-white/20 dark:border-emerald-500/30">
                 <img 
-                  src="/src/assets/profile.png" 
+                  src="/profile.png" 
                   alt="Mrinal Paul"
                   className="w-full h-full object-cover object-center"
                   onError={(e) => {
