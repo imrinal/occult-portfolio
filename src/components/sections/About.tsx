@@ -1,6 +1,7 @@
 import React from 'react';
 import { GlassCard } from '../layout/GlassCard';
 import { ShieldCheck, Award, Cpu, BookOpen } from 'lucide-react';
+import profileImage from '../../assets/profile.png';
 
 export const About: React.FC = () => {
   return (
@@ -58,7 +59,7 @@ export const About: React.FC = () => {
                     <BookOpen size={22} />
                   </div>
                   <div>
-                    <h4 className="text-sm md:text-base font-bold font-brand text-gold-500">Peer Reviewer</h4>
+                    <h4 className="text-sm md:text-base font-brand font-bold text-gold-500">Peer Reviewer</h4>
                     <p className="text-xs text-slate-500 dark:text-silver-300 uppercase tracking-wider mt-0.5">IEEE Access</p>
                   </div>
                 </div>
@@ -68,7 +69,7 @@ export const About: React.FC = () => {
                     <Cpu size={22} />
                   </div>
                   <div>
-                    <h4 className="text-sm md:text-base font-bold font-brand text-emerald-500">Research Intern</h4>
+                    <h4 className="text-sm md:text-base font-brand font-bold text-emerald-500">Research Intern</h4>
                     <p className="text-xs text-slate-500 dark:text-silver-300 uppercase tracking-wider mt-0.5">IIT Kharagpur</p>
                   </div>
                 </div>
@@ -84,15 +85,12 @@ export const About: React.FC = () => {
               
               <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/60 via-transparent to-transparent z-10 pointer-events-none" />
 
-              {/* Photo Container with fixed public path */}
+              {/* Photo Container using the exact requested module import style */}
               <div className="relative w-full flex-1 min-h-[380px] lg:min-h-[440px] rounded-xl overflow-hidden border border-white/20 dark:border-emerald-500/30">
                 <img 
-                  src="/profile.png" 
-                  alt="Mrinal Paul"
+                  src={profileImage} 
+                  alt="Mrinal Paul - Occult Tech Architect"
                   className="w-full h-full object-cover object-center"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).src = "https://ui-avatars.com/api/?name=Mrinal+Paul&background=041a10&color=34d399&size=600";
-                  }}
                 />
                 
                 {/* Floating Verified Badge */}
