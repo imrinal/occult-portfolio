@@ -16,9 +16,9 @@ export const Hero: React.FC = () => {
         {/* 3. The Banner Container (Responsive swapping between desktop and mobile wallpapers with smooth glassmorphism edges) */}
         <div className="flex-1 w-full rounded-[2rem] overflow-hidden border border-emerald-500/30 dark:border-emerald-500/20 bg-white/60 dark:bg-black/40 backdrop-blur-md shadow-[0_15px_40px_rgba(0,0,0,0.1)] dark:shadow-[0_15px_40px_rgba(0,0,0,0.4)] transition-all duration-500">
           
-          {/* Desktop Banner */}
+          {/* Desktop Banner - Automatically displays on md screens and up */}
           <img 
-            src="/desk-hero.png" 
+            src="/src/assets/desk-hero.png" 
             alt="Mrinal Paul - Occult Tech Architect"
             className="hidden md:block w-full h-full object-cover"
             onError={(e) => {
@@ -26,9 +26,9 @@ export const Hero: React.FC = () => {
             }}
           />
           
-          {/* Mobile Banner */}
+          {/* Mobile Banner - Automatically displays on smaller screen sizes */}
           <img 
-            src="/mobile-hero.png" 
+            src="/src/assets/mobile-hero.png" 
             alt="Mrinal Paul - Occult Tech Architect"
             className="block md:hidden w-full h-full object-cover"
             onError={(e) => {
