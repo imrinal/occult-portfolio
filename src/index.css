@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Caacupe+One&family=Poppins:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-emerald-900: #064e3b;
+  --color-emerald-800: #065f46;
+  --color-emerald-500: #10b981;
+  --color-emerald-400: #34d399;
+  
+  --color-gold-500: #d97706;
+  --color-gold-400: #fbbf24;
+  
+  --color-silver-300: #d1d5db;
+  --color-silver-100: #f3f4f6;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    font-family: 'Poppins', sans-serif;
+    @apply bg-slate-50 text-slate-900 transition-colors duration-500 ease-in-out;
+    background-image: radial-gradient(#d1d5db 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  
+  .dark body {
+    @apply bg-[#050505] text-silver-100;
+    background-image: radial-gradient(#1f2937 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .font-brand {
+    font-family: 'Caacupe One', sans-serif;
+  }
+}
+
+/* Custom smooth scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(6, 95, 70, 0.5);
+  border-radius: 9999px;
+}
