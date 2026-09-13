@@ -6,7 +6,7 @@ import jupiterImage from '../../assets/jupiter.png';
 // Local Logo Imports
 import ieeeLogo from '../../assets/IEEE.jpg';
 import unstopLogo from '../../assets/unstop.jpg';
-import gfgLogo from '../../assets/GFG.png';
+import gfgLogo from '../../assets/gfg.png';
 import geeksLogo from '../../assets/geeks.png';
 import kgpLogo from '../../assets/kgp.png';
 import qdcLogo from '../../assets/qdc.jpeg';
