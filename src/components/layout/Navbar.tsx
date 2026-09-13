@@ -14,8 +14,8 @@ export const Navbar = () => {
     { name: 'Home', href: '#home', icon: Home, hideOnMobile: true },
     { name: 'About', href: '#about', icon: User, hideOnMobile: false },
     { name: 'Skills', href: '#skills', icon: Code2, hideOnMobile: false },
-    { name: 'Works', href: '#projects', icon: FolderGit2, hideOnMobile: false },
     { name: 'Career', href: '#experience', icon: Briefcase, hideOnMobile: false },
+    { name: 'Works', href: '#projects', icon: FolderGit2, hideOnMobile: false },
     { name: 'Edu', href: '#education', icon: GraduationCap, hideOnMobile: false },
     { name: 'Contact', href: '#contact', icon: Send, hideOnMobile: false },
   ];
