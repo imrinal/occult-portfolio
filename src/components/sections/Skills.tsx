@@ -3,7 +3,7 @@ import { GlassCard } from '../layout/GlassCard';
 import { 
   Terminal, Brain, Users, Layout, Database, Sparkles, Code2, 
   Cpu, Layers, Network, LineChart, FlaskConical, Workflow, 
-  ShieldCheck, CpuIcon, Boxes, BarChart2, MessageSquare, Lightbulb
+  ShieldCheck, CpuIcon, Boxes, MessageSquare, Lightbulb
 } from 'lucide-react';
 import geminiImage from '../../assets/gemini.png';
 
