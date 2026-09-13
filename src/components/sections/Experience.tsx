@@ -3,7 +3,7 @@ import { GlassCard } from '../layout/GlassCard';
 import { MapPin, Calendar, Briefcase } from 'lucide-react';
 import jupiterImage from '../../assets/jupiter.png';
 
-// Local Logo Imports
+// Local Logo Imports with exact matching filenames and extensions from assets folder
 import ieeeLogo from '../../assets/IEEE.jpg';
 import unstopLogo from '../../assets/unstop.jpg';
 import gfgLogo from '../../assets/gfg.png';
