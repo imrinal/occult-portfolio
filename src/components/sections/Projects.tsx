@@ -3,8 +3,28 @@ import { GlassCard } from '../layout/GlassCard';
 import { ExternalLink, BookOpen, Layers, CheckCircle2 } from 'lucide-react';
 import sunImage from '../../assets/sun.png';
 
+interface ProjectLink {
+  label: string;
+  url: string;
+  icon?: any;
+  isGithub?: boolean;
+}
+
+interface Project {
+  id: number;
+  title: string;
+  type: string;
+  role: string;
+  status: string;
+  doi?: string;
+  description: React.ReactNode;
+  tags: string[];
+  icon: any;
+  links: ProjectLink[];
+}
+
 export const Projects: React.FC = () => {
-  const projects = [
+  const projects: Project[] = [
     {
       id: 1,
       title: "Next-Gen Farming: Machine Learning–Driven Disruptive Technologies",
@@ -36,7 +56,7 @@ export const Projects: React.FC = () => {
       tags: ["Python", "Scikit-learn", "TensorFlow", "Keras", "NumPy", "Pandas", "Matplotlib"],
       icon: BookOpen,
       links: [
-        { label: "DOI Link", url: "https://doi.org/10.18805/IJARe.A-6504", icon: ExternalLink }
+        { label: "DOI Link", url: "https://doi.org/10.18805/IJARe.A-6504", icon: ExternalLink, isGithub: false }
       ]
     },
     {
@@ -78,7 +98,6 @@ export const Projects: React.FC = () => {
       ),
       tags: ["PHP 7.x", "MySQL 8.x", "Tailwind CSS", "JavaScript", "HTML5/CSS3", "XAMPP"],
       icon: Layers,
-      isGithub: true,
       links: [
         { label: "Source Code", url: "https://github.com/mrinalpaul12", isGithub: true }
       ]
