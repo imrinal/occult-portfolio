@@ -2,8 +2,8 @@ import React from 'react';
 import { GlassCard } from '../layout/GlassCard';
 import { GraduationCap, Calendar, MapPin, Award } from 'lucide-react';
 
-// Local Logo Imports - Case fixed to match your files perfectly
-import srmLogo from '../../assets/SRM.jpeg';
+// Local Logo Imports with exact lowercase matching your file system
+import srmLogo from '../../assets/srm.jpeg';
 import spsLogo from '../../assets/sps.png';
 import svsLogo from '../../assets/svs.png';
 
