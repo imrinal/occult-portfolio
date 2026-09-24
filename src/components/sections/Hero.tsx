@@ -17,14 +17,14 @@ export const Hero: React.FC = () => {
           <img 
             src={deskHero} 
             alt="Mrinal Paul - Occult Tech Architect Desktop Banner"
-            fetchpriority="high"
+            fetchPriority="high"
             className="hidden md:block w-full h-full object-cover absolute inset-0"
           />
           
           <img 
             src={mobileHero} 
             alt="Mrinal Paul - Occult Tech Architect Mobile Banner"
-            fetchpriority="high"
+            fetchPriority="high"
             className="block md:hidden w-full h-full object-cover absolute inset-0"
           />
           
