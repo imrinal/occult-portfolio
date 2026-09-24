@@ -17,6 +17,12 @@
   }
 }
 
+#root {
+  width: 100%;
+  margin: 0 auto;
+  text-align: left;
+}
+
 .hero {
   position: relative;
 
@@ -182,3 +188,4 @@
     border-right-color: var(--border);
   }
 }
+

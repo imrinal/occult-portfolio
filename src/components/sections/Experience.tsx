@@ -1,9 +1,8 @@
 import React from 'react';
 import { GlassCard } from '../layout/GlassCard';
+import { ScrollReveal } from '../layout/ScrollReveal';
 import { MapPin, Calendar, Briefcase } from 'lucide-react';
 import jupiterImage from '../../assets/jupiter.png';
-
-// Local Logo Imports with exact matching filenames and extensions from assets folder
 import ieeeLogo from '../../assets/IEEE.jpg';
 import unstopLogo from '../../assets/unstop.jpg';
 import gfgLogo from '../../assets/gfg.png';
@@ -172,13 +171,14 @@ export const Experience: React.FC = () => {
   return (
     <section id="experience" className="w-full flex flex-col justify-center py-16 px-4 md:px-6 max-w-6xl mx-auto overflow-hidden">
       
-      {/* Section Header with Tighter Spacing */}
-      <div className="text-center mb-6 shrink-0 flex flex-col items-center">
-        <div className="inline-flex items-center justify-center gap-4 mb-2">
+      <ScrollReveal className="text-center mb-10 shrink-0 flex flex-col items-center">
+        <div className="inline-flex items-center justify-center gap-4 mb-2 group">
           <img 
             src={jupiterImage} 
             alt="Jupiter Logo" 
-            className="w-12 h-12 md:w-14 md:h-14 object-contain drop-shadow-[0_0_15px_rgba(249,115,22,0.65)] shrink-0" 
+            loading="lazy"
+            decoding="async"
+            className="w-12 h-12 md:w-16 md:h-16 object-contain drop-shadow-[0_0_15px_rgba(249,115,22,0.65)] shrink-0 group-hover:rotate-12 transition-transform duration-700" 
           />
           <div className="text-left">
             <h2 className="text-[11px] uppercase tracking-[0.3em] text-orange-500 font-semibold mb-0.5">
@@ -189,79 +189,69 @@ export const Experience: React.FC = () => {
             </h3>
           </div>
         </div>
-      </div>
+      </ScrollReveal>
 
-      {/* Sleek Vertical Timeline with Reduced Gaps */}
       <div className="relative w-full max-w-5xl mx-auto mt-2">
-        
-        {/* The Central Line */}
-        <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-emerald-500/50 via-emerald-500/20 to-transparent md:-translate-x-1/2 rounded-full" />
+        <div className="absolute left-5 sm:left-6 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-emerald-500/80 via-emerald-500/20 to-transparent md:-translate-x-1/2 rounded-full" />
         
         {experiences.map((exp, index) => {
           const isLeftAligned = index % 2 === 0;
 
           return (
-            <div 
+            <ScrollReveal 
               key={exp.id} 
-              className={`relative flex flex-col md:flex-row items-start md:items-center justify-between w-full mb-6 ${isLeftAligned ? 'md:flex-row-reverse' : ''}`}
+              delay={100}
+              className={`relative flex flex-col md:flex-row items-start md:items-center justify-between w-full mb-5 ${isLeftAligned ? 'md:flex-row-reverse' : ''}`}
             >
               
-              {/* Timeline Dot Node */}
-              <div className="absolute left-6 md:left-1/2 w-3.5 h-3.5 rounded-full bg-emerald-500 border-4 border-white dark:border-[#0a0a0a] shadow-[0_0_10px_rgba(16,185,129,0.8)] transform -translate-x-1/2 mt-5 md:mt-0 z-20" />
+              <div className="absolute left-5 sm:left-6 md:left-1/2 w-4 h-4 rounded-full bg-emerald-500 border-4 border-white dark:border-[#0a0a0a] shadow-[0_0_15px_rgba(16,185,129,0.8)] transform -translate-x-1/2 mt-5 md:mt-0 z-20 group-hover:scale-125 transition-transform duration-500" />
 
-              {/* Empty Spacer Div */}
-              <div className="hidden md:block w-5/12" />
+              <div className="hidden md:block md:w-1/2" />
 
-              {/* Content Card Wrapper */}
-              <div className="w-full md:w-5/12 pl-12 md:pl-0">
-                <GlassCard className="w-full p-4 md:p-5 flex flex-col justify-between border-emerald-500/20 bg-white/60 dark:bg-black/40 backdrop-blur-3xl overflow-hidden relative group hover:border-emerald-500/50 transition-colors duration-300 shadow-md">
+              <div className={`w-full md:w-1/2 pl-11 sm:pl-12 md:pl-0 ${isLeftAligned ? 'md:pr-8 lg:pr-10' : 'md:pl-8 lg:pl-10'}`}>
+                <GlassCard className="w-full p-5 md:p-6 flex flex-col justify-between border-emerald-500/20 bg-white/60 dark:bg-black/40 backdrop-blur-lg overflow-hidden relative group shadow-md">
                   
-                  {/* Subtle Background Glow */}
-                  <div className="absolute -right-20 -top-20 w-32 h-32 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none group-hover:bg-emerald-500/10 transition-all duration-700" />
+                  <div className="absolute -right-32 -top-32 w-64 h-64 bg-[radial-gradient(circle,rgba(16,185,129,0.15)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
                   <div className="relative z-10">
-                    {/* Top: Logo & Role */}
-                    <div className="flex items-start gap-3 mb-2.5">
-                      <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-white p-1 shadow-sm shrink-0 border border-slate-200 dark:border-none flex items-center justify-center overflow-hidden">
-                        <img src={exp.logo} alt={exp.company} className="w-full h-full object-contain" />
+                    <div className="flex items-start gap-3.5 mb-3">
+                      <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-white p-1.5 shadow-sm shrink-0 border border-slate-200 dark:border-none flex items-center justify-center overflow-hidden transform group-hover:scale-110 transition-transform duration-500">
+                        <img src={exp.logo} alt={exp.company} loading="lazy" className="w-full h-full object-contain" />
                       </div>
                       <div>
-                        <h4 className="text-sm md:text-base font-medium text-slate-900 dark:text-silver-100 font-brand leading-tight">
+                        <h4 className="text-base md:text-lg font-medium text-slate-900 dark:text-silver-100 font-brand leading-tight group-hover:text-emerald-500 transition-colors duration-300">
                           {exp.role}
                         </h4>
-                        <p className="text-xs font-medium text-emerald-600 dark:text-emerald-400 mt-0.5">
+                        <p className="text-xs font-medium text-emerald-600 dark:text-emerald-400 mt-1">
                           {exp.company}
                         </p>
                       </div>
                     </div>
 
-                    {/* Meta Details with Clean Uniform White/Neutral Styling */}
-                    <div className="flex flex-wrap items-center gap-2 mb-2 text-[10px] md:text-[11px] font-medium">
-                      <div className="flex items-center gap-1 bg-white/60 dark:bg-white/5 text-slate-700 dark:text-silver-300 px-2 py-0.5 rounded-md border border-slate-200/60 dark:border-white/10">
-                        <Calendar size={11} className="text-emerald-500" />
+                    <div className="flex flex-wrap items-center gap-2 mb-3 text-[10px] md:text-[11px] font-medium">
+                      <div className="flex items-center gap-1.5 bg-white/60 dark:bg-white/5 text-slate-700 dark:text-silver-300 px-2.5 py-1 rounded-md border border-slate-200/60 dark:border-white/10">
+                        <Calendar size={12} className="text-emerald-500" />
                         <span>{exp.date}</span>
                       </div>
-                      <div className="flex items-center gap-1 bg-white/60 dark:bg-white/5 text-slate-700 dark:text-silver-300 px-2 py-0.5 rounded-md border border-slate-200/60 dark:border-white/10">
-                        <MapPin size={11} className="text-emerald-500" />
+                      <div className="flex items-center gap-1.5 bg-white/60 dark:bg-white/5 text-slate-700 dark:text-silver-300 px-2.5 py-1 rounded-md border border-slate-200/60 dark:border-white/10">
+                        <MapPin size={12} className="text-emerald-500" />
                         <span>{exp.location}</span>
                       </div>
-                      <div className="flex items-center gap-1 bg-white/60 dark:bg-white/5 text-slate-700 dark:text-silver-300 px-2 py-0.5 rounded-md border border-slate-200/60 dark:border-white/10">
-                        <Briefcase size={11} className="text-emerald-500" />
+                      <div className="flex items-center gap-1.5 bg-white/60 dark:bg-white/5 text-slate-700 dark:text-silver-300 px-2.5 py-1 rounded-md border border-slate-200/60 dark:border-white/10">
+                        <Briefcase size={12} className="text-emerald-500" />
                         <span>{exp.type}</span>
                       </div>
                     </div>
 
-                    {/* Description */}
-                    <p className="text-xs text-slate-700 dark:text-silver-300 leading-relaxed mb-3">
+                    <p className="text-xs md:text-sm text-slate-700 dark:text-silver-300 leading-relaxed mb-4">
                       {exp.description}
                     </p>
 
-                    {/* Sleek Skill Tags */}
-                    <div className="flex flex-wrap gap-1.5">
+                    <div className="flex flex-wrap gap-2">
                       {exp.tags.map((tag, i) => (
                         <span 
                           key={i} 
-                          className="px-2 py-0.5 text-[9px] uppercase tracking-wider font-semibold rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20"
+                          className="px-2.5 py-1 text-[9px] md:text-[10px] uppercase tracking-wider font-semibold rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20"
                         >
                           {tag}
                         </span>
@@ -271,11 +261,10 @@ export const Experience: React.FC = () => {
                 </GlassCard>
               </div>
 
-            </div>
+            </ScrollReveal>
           );
         })}
       </div>
-
     </section>
   );
 };

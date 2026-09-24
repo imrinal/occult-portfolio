@@ -2,13 +2,43 @@ import { useState, useEffect } from 'react';
 import { User, Code2, Briefcase, FolderGit2, GraduationCap, Send, Sun, Moon, Home, Download } from 'lucide-react';
 
 export const Navbar = () => {
-  const [darkMode, setDarkMode] = useState(true);
+  const [darkMode, setDarkMode] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('theme') === 'dark' || 
+        (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    }
+    return true;
+  });
+  
   const [active, setActive] = useState('Home');
 
   useEffect(() => {
-    if (darkMode) document.documentElement.classList.add('dark');
-    else document.documentElement.classList.remove('dark');
+    if (darkMode) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
   }, [darkMode]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute('id');
+            const navItem = navLinks.find(link => link.href === `#${id}`);
+            if (navItem) setActive(navItem.name);
+          }
+        });
+      },
+      { rootMargin: '-40% 0px -40% 0px', threshold: 0 }
+    );
+
+    document.querySelectorAll('section[id]').forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
 
   const navLinks = [
     { name: 'Home', href: '#home', icon: Home, hideOnMobile: true },
@@ -24,14 +54,12 @@ export const Navbar = () => {
     <header className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-max max-w-[96vw]">
       <div className="bg-white/70 dark:bg-black/80 backdrop-blur-3xl border border-white/60 dark:border-white/10 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] rounded-full px-3 sm:px-5 py-2.5 flex items-center gap-1.5 sm:gap-3 transition-all duration-500">
         
-        {/* Brand Name - Properly sized to match the bar's visual height and weight */}
         <div className="hidden md:flex items-center pl-1 pr-3.5 border-r border-slate-300 dark:border-white/10">
           <span className="text-sm sm:text-base font-bold tracking-widest uppercase bg-gradient-to-r from-emerald-600 to-gold-500 bg-clip-text text-transparent font-brand leading-none">
             Mrinal Paul
           </span>
         </div>
 
-        {/* Liquid iOS Nav Menu */}
         <nav className="flex items-center gap-0.5 sm:gap-1">
           {navLinks.map((link) => {
             const Icon = link.icon;
@@ -49,13 +77,13 @@ export const Navbar = () => {
                     : 'text-slate-600 dark:text-silver-300 hover:bg-white/50 dark:hover:bg-white/10 hover:text-emerald-600 dark:hover:text-emerald-400 border border-transparent font-medium'}
                 `}
                 title={link.name}
+                aria-label={link.name}
               >
                 <Icon 
                   size={18} 
                   strokeWidth={isActive ? 2.5 : 2}
                   className={`transition-all duration-500 z-10 ${isActive ? 'scale-110' : 'group-hover:-translate-y-0.5 group-hover:scale-110'}`} 
                 />
-                
                 <span className={`z-10 overflow-hidden whitespace-nowrap text-xs sm:text-sm tracking-wide transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] hidden md:block
                   ${isActive ? 'max-w-[100px] opacity-100 ml-2' : 'max-w-0 opacity-0 ml-0'}
                 `}>
@@ -66,25 +94,22 @@ export const Navbar = () => {
           })}
         </nav>
 
-        {/* Right Section: Resume Button + Toggle */}
         <div className="flex items-center gap-1.5 sm:gap-2.5 pl-1.5 sm:pl-3 border-l border-slate-300 dark:border-white/10">
-          
-          {/* Actionable Resume Button */}
           <a
             href="/resume.pdf"
             download
             className="group flex items-center justify-center p-2.5 sm:px-3.5 sm:py-2.5 rounded-full bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-700 dark:text-emerald-400 transition-all duration-300 shadow-sm"
             title="Download Resume"
+            aria-label="Download Resume"
           >
             <Download size={18} strokeWidth={2.5} className="transition-transform group-hover:-translate-y-0.5" />
             <span className="hidden md:block text-xs sm:text-sm font-semibold ml-1.5">Resume</span>
           </a>
 
-          {/* Flawless iOS Mechanical Toggle Switch */}
           <button 
             onClick={() => setDarkMode(!darkMode)}
             className="relative w-12 sm:w-15 h-7 sm:h-8 rounded-full bg-slate-200 dark:bg-[#111] shadow-inner border border-slate-300 dark:border-white/10 flex items-center p-0.5 cursor-pointer overflow-hidden transition-colors duration-500"
-            aria-label="Toggle Ark Mode"
+            aria-label="Toggle Dark Mode"
           >
             <div className="absolute left-1 text-gold-500/50 scale-90"><Sun size={12} /></div>
             <div className="absolute right-1 text-emerald-400/50 scale-90"><Moon size={12} /></div>
