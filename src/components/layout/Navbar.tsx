@@ -1,6 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import { User, Code2, Briefcase, FolderGit2, GraduationCap, Send, Sun, Moon, Home, Download } from 'lucide-react';
 
+// IMPORT YOUR ICON HERE (Adjust the path if it's directly in src like '../../icon.png')
+import iconLogo from '../../assets/icon.png';
+
 export const Navbar = () => {
   const [darkMode, setDarkMode] = useState(() => {
     if (typeof window !== 'undefined') {
@@ -13,7 +16,6 @@ export const Navbar = () => {
   const [active, setActive] = useState('Home');
   const navRef = useRef<HTMLDivElement>(null);
 
-  // Track cursor position for the golden hover spotlight
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!navRef.current) return;
     const rect = navRef.current.getBoundingClientRect();
@@ -67,13 +69,11 @@ export const Navbar = () => {
         className="relative group bg-white/70 dark:bg-[#0a0a0a]/80 backdrop-blur-3xl border border-white/60 dark:border-white/10 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.05)] rounded-full px-3 sm:px-5 py-2.5 flex items-center gap-1.5 sm:gap-3 transition-all duration-500 overflow-hidden"
       >
         
-        {/* Cursor Tracking Spotlight (Background Fill) */}
         <div 
           className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 z-0"
           style={{ background: 'radial-gradient(150px circle at var(--x, 0) var(--y, 0), rgba(251,191,36,0.15), transparent 40%)' }}
         />
         
-        {/* Cursor Tracking Spotlight (Glowing Border) */}
         <div 
           className="pointer-events-none absolute inset-0 rounded-full opacity-0 transition-opacity duration-500 group-hover:opacity-100 z-0"
           style={{ 
@@ -85,9 +85,14 @@ export const Navbar = () => {
           }}
         />
 
-        {/* Name with Emerald-to-Gold gradient */}
-        <div className="relative z-10 hidden md:flex items-center pl-1 pr-3.5 border-r border-slate-300 dark:border-white/10">
-          <span className="text-sm sm:text-base tracking-wider bg-gradient-to-r from-emerald-400 to-gold-500 bg-clip-text text-transparent font-brand leading-none">
+        {/* USE THE IMPORTED VARIABLE HERE */}
+        <div className="relative z-10 hidden md:flex items-center gap-2 pl-2 pr-3.5 border-r border-slate-300 dark:border-white/10">
+          <img 
+            src={iconLogo} 
+            alt="Mrinal Logo" 
+            className="w-5 h-5 object-contain drop-shadow-[0_0_8px_rgba(16,185,129,0.4)]"
+          />
+          <span className="text-sm sm:text-base tracking-wider bg-gradient-to-r from-emerald-400 to-gold-500 bg-clip-text text-transparent font-brand leading-none pt-0.5">
             MRINAL
           </span>
         </div>
