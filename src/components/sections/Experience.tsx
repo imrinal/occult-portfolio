@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { GlassCard } from '../layout/GlassCard';
 import { ScrollReveal } from '../layout/ScrollReveal';
-import { MapPin, Calendar, Briefcase } from 'lucide-react';
+import { MapPin, Calendar } from 'lucide-react'; // Briefcase removed
 import ieeeLogo from '../../assets/IEEE.jpg';
 import unstopLogo from '../../assets/unstop.jpg';
 import gfgLogo from '../../assets/gfg.png';
@@ -242,13 +242,10 @@ export const Experience: React.FC = () => {
   }, []);
 
   return (
-    // scroll-mt-0 guarantees that when clicked via navbar, it snaps perfectly to the top of the sticky container
     <section id="experience" ref={sectionRef} className="relative w-full h-[350vh] scroll-mt-0">
       
-      {/* Changed to justify-start and pt-[12vh] to lock the heading precisely near the top, eliminating awkward gaps */}
       <div className="sticky top-0 h-[100dvh] w-full flex flex-col items-center justify-start pt-[12vh] md:pt-[15vh] overflow-hidden">
         
-        {/* Tightened mb-4 to bring cards closer to the heading */}
         <ScrollReveal className="text-center shrink-0 flex flex-col items-center z-10 mb-4 md:mb-6">
           <div className="text-center">
             <h2 className="text-[10px] md:text-xs uppercase tracking-[0.4em] text-gold-500 font-semibold mb-2">
@@ -260,7 +257,6 @@ export const Experience: React.FC = () => {
           </div>
         </ScrollReveal>
 
-        {/* The slider container */}
         <div className="w-full flex items-start mt-2">
           <div 
             ref={sliderRef}

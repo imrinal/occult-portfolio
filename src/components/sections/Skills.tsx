@@ -43,7 +43,8 @@ const skillDomains = [
   }
 ];
 
-const SkillCard = ({ domain, delay }: { domain: typeof skillDomains[0], delay: number }) => {
+// Fixed TypeScript type to strict literals for the delay prop
+const SkillCard = ({ domain, delay }: { domain: typeof skillDomains[0], delay: 0 | 100 | 200 | 300 | 400 | 500 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
 
   const handleMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -62,16 +63,13 @@ const SkillCard = ({ domain, delay }: { domain: typeof skillDomains[0], delay: n
       >
         <GlassCard className="p-4 md:p-6 h-full flex flex-col relative overflow-hidden">
           
-          {/* Subtle Domain Color Glow Backdrop */}
           <div className={`absolute -right-20 -top-20 w-64 h-64 bg-gradient-to-br ${domain.gradient} opacity-5 blur-[80px] pointer-events-none transition-opacity duration-500 group-hover:opacity-15`} />
 
-          {/* Golden Cursor Tracker (Inner Fill) */}
           <div 
             className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 z-0"
             style={{ background: 'radial-gradient(400px circle at var(--x, 0) var(--y, 0), rgba(251,191,36,0.15), transparent 40%)' }}
           />
           
-          {/* Sleek Golden Cursor Tracker (Glowing Border) */}
           <div 
             className="pointer-events-none absolute inset-0 rounded-2xl md:rounded-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-100 z-30"
             style={{ 
@@ -112,7 +110,6 @@ const SkillCard = ({ domain, delay }: { domain: typeof skillDomains[0], delay: n
 
 export const Skills: React.FC = () => {
   return (
-    // 100dvh ensures full screen framing; pb-28 creates a cushion so the navbar doesn't cover content
     <section id="skills" className="relative w-full min-h-[100dvh] flex flex-col justify-center pt-12 pb-28 px-4 md:px-8 max-w-7xl mx-auto">
       
       <ScrollReveal className="text-center mb-8 shrink-0 flex flex-col items-center">
@@ -125,13 +122,17 @@ export const Skills: React.FC = () => {
       </ScrollReveal>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-5">
-        {skillDomains.map((domain, index) => (
-          <SkillCard 
-            key={domain.title} 
-            domain={domain} 
-            delay={100 + (index * 100)} 
-          />
-        ))}
+        {skillDomains.map((domain, index) => {
+          // Explicitly cast to the type needed to satisfy TypeScript 
+          const strictDelay = (100 + (index * 100)) as 0 | 100 | 200 | 300 | 400 | 500;
+          return (
+            <SkillCard 
+              key={domain.title} 
+              domain={domain} 
+              delay={strictDelay} 
+            />
+          );
+        })}
       </div>
       
     </section>
