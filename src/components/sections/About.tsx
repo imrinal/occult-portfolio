@@ -11,8 +11,8 @@ export const About: React.FC = () => {
   const socialRef = useRef<HTMLDivElement>(null);
   const imgRef = useRef<HTMLDivElement>(null);
 
-  // Advanced Cursor Tracking Engine
-  const handleMove = (e: React.MouseEvent<HTMLDivElement>, ref: React.RefObject<HTMLDivElement>) => {
+  // Advanced Cursor Tracking Engine (TypeScript null check fixed)
+  const handleMove = (e: React.MouseEvent<HTMLDivElement>, ref: React.RefObject<HTMLDivElement | null>) => {
     if (!ref.current) return;
     const rect = ref.current.getBoundingClientRect();
     ref.current.style.setProperty('--x', `${e.clientX - rect.left}px`);
