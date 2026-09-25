@@ -1,16 +1,25 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { User, Code2, Briefcase, FolderGit2, GraduationCap, Send, Sun, Moon, Home, Download } from 'lucide-react';
 
 export const Navbar = () => {
   const [darkMode, setDarkMode] = useState(() => {
     if (typeof window !== 'undefined') {
-      return localStorage.getItem('theme') === 'dark' || 
-        (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      const savedTheme = localStorage.getItem('theme');
+      return savedTheme ? savedTheme === 'dark' : true; 
     }
     return true;
   });
   
   const [active, setActive] = useState('Home');
+  const navRef = useRef<HTMLDivElement>(null);
+
+  // Track cursor position for the golden hover spotlight
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!navRef.current) return;
+    const rect = navRef.current.getBoundingClientRect();
+    navRef.current.style.setProperty('--x', `${e.clientX - rect.left}px`);
+    navRef.current.style.setProperty('--y', `${e.clientY - rect.top}px`);
+  };
 
   useEffect(() => {
     if (darkMode) {
@@ -52,15 +61,38 @@ export const Navbar = () => {
 
   return (
     <header className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-max max-w-[96vw]">
-      <div className="bg-white/70 dark:bg-black/80 backdrop-blur-3xl border border-white/60 dark:border-white/10 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] rounded-full px-3 sm:px-5 py-2.5 flex items-center gap-1.5 sm:gap-3 transition-all duration-500">
+      <div 
+        ref={navRef}
+        onMouseMove={handleMouseMove}
+        className="relative group bg-white/70 dark:bg-[#0a0a0a]/80 backdrop-blur-3xl border border-white/60 dark:border-white/10 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.05)] rounded-full px-3 sm:px-5 py-2.5 flex items-center gap-1.5 sm:gap-3 transition-all duration-500 overflow-hidden"
+      >
         
-        <div className="hidden md:flex items-center pl-1 pr-3.5 border-r border-slate-300 dark:border-white/10">
-          <span className="text-sm sm:text-base font-bold tracking-widest uppercase bg-gradient-to-r from-emerald-600 to-gold-500 bg-clip-text text-transparent font-brand leading-none">
-            Mrinal Paul
+        {/* Cursor Tracking Spotlight (Background Fill) */}
+        <div 
+          className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 z-0"
+          style={{ background: 'radial-gradient(150px circle at var(--x, 0) var(--y, 0), rgba(251,191,36,0.15), transparent 40%)' }}
+        />
+        
+        {/* Cursor Tracking Spotlight (Glowing Border) */}
+        <div 
+          className="pointer-events-none absolute inset-0 rounded-full opacity-0 transition-opacity duration-500 group-hover:opacity-100 z-0"
+          style={{ 
+            background: 'radial-gradient(150px circle at var(--x, 0) var(--y, 0), rgba(251, 191, 36, 0.8), transparent 40%) border-box',
+            border: '1px solid transparent',
+            WebkitMask: 'linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0)',
+            WebkitMaskComposite: 'xor',
+            maskComposite: 'exclude'
+          }}
+        />
+
+        {/* Name with Emerald-to-Gold gradient */}
+        <div className="relative z-10 hidden md:flex items-center pl-1 pr-3.5 border-r border-slate-300 dark:border-white/10">
+          <span className="text-sm sm:text-base tracking-wider bg-gradient-to-r from-emerald-400 to-gold-500 bg-clip-text text-transparent font-brand leading-none">
+            MRINAL
           </span>
         </div>
 
-        <nav className="flex items-center gap-0.5 sm:gap-1">
+        <nav className="relative z-10 flex items-center gap-0.5 sm:gap-1">
           {navLinks.map((link) => {
             const Icon = link.icon;
             const isActive = active === link.name;
@@ -70,11 +102,11 @@ export const Navbar = () => {
                 key={link.name}
                 href={link.href}
                 onClick={() => setActive(link.name)}
-                className={`relative group flex items-center justify-center p-2.5 sm:px-3.5 sm:py-2.5 rounded-full transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] overflow-hidden
+                className={`relative group/link flex items-center justify-center p-2.5 sm:px-3.5 sm:py-2.5 rounded-full transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] overflow-hidden
                   ${link.hideOnMobile ? 'hidden md:flex' : 'flex'}
                   ${isActive 
-                    ? 'bg-white/90 dark:bg-black/90 shadow-[0_2px_15px_rgba(16,185,129,0.2)] text-emerald-700 dark:text-emerald-400 border border-emerald-500/40 font-semibold' 
-                    : 'text-slate-600 dark:text-silver-300 hover:bg-white/50 dark:hover:bg-white/10 hover:text-emerald-600 dark:hover:text-emerald-400 border border-transparent font-medium'}
+                    ? 'bg-white/90 dark:bg-white/10 shadow-[0_2px_15px_rgba(16,185,129,0.2)] text-emerald-600 dark:text-emerald-400 border border-emerald-500/30' 
+                    : 'text-slate-600 dark:text-silver-300 hover:bg-white/50 dark:hover:bg-white/5 hover:text-emerald-600 dark:hover:text-emerald-400 border border-transparent'}
                 `}
                 title={link.name}
                 aria-label={link.name}
@@ -82,9 +114,9 @@ export const Navbar = () => {
                 <Icon 
                   size={18} 
                   strokeWidth={isActive ? 2.5 : 2}
-                  className={`transition-all duration-500 z-10 ${isActive ? 'scale-110' : 'group-hover:-translate-y-0.5 group-hover:scale-110'}`} 
+                  className={`transition-all duration-500 z-10 ${isActive ? 'scale-110' : 'group-hover/link:-translate-y-0.5 group-hover/link:scale-110'}`} 
                 />
-                <span className={`z-10 overflow-hidden whitespace-nowrap text-xs sm:text-sm tracking-wide transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] hidden md:block
+                <span className={`z-10 overflow-hidden whitespace-nowrap text-xs sm:text-sm font-medium tracking-wide transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] hidden md:block
                   ${isActive ? 'max-w-[100px] opacity-100 ml-2' : 'max-w-0 opacity-0 ml-0'}
                 `}>
                   {link.name}
@@ -94,21 +126,21 @@ export const Navbar = () => {
           })}
         </nav>
 
-        <div className="flex items-center gap-1.5 sm:gap-2.5 pl-1.5 sm:pl-3 border-l border-slate-300 dark:border-white/10">
+        <div className="relative z-10 flex items-center gap-1.5 sm:gap-2.5 pl-1.5 sm:pl-3 border-l border-slate-300 dark:border-white/10">
           <a
             href="/resume.pdf"
             download
-            className="group flex items-center justify-center p-2.5 sm:px-3.5 sm:py-2.5 rounded-full bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-700 dark:text-emerald-400 transition-all duration-300 shadow-sm"
+            className="group/btn flex items-center justify-center p-2.5 sm:px-3.5 sm:py-2.5 rounded-full bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-700 dark:text-emerald-400 transition-all duration-300 shadow-sm"
             title="Download Resume"
             aria-label="Download Resume"
           >
-            <Download size={18} strokeWidth={2.5} className="transition-transform group-hover:-translate-y-0.5" />
+            <Download size={18} strokeWidth={2.5} className="transition-transform group-hover/btn:-translate-y-0.5" />
             <span className="hidden md:block text-xs sm:text-sm font-semibold ml-1.5">Resume</span>
           </a>
 
           <button 
             onClick={() => setDarkMode(!darkMode)}
-            className="relative w-12 sm:w-15 h-7 sm:h-8 rounded-full bg-slate-200 dark:bg-[#111] shadow-inner border border-slate-300 dark:border-white/10 flex items-center p-0.5 cursor-pointer overflow-hidden transition-colors duration-500"
+            className="relative w-12 sm:w-15 h-7 sm:h-8 rounded-full bg-slate-200 dark:bg-black shadow-inner border border-slate-300 dark:border-white/10 flex items-center p-0.5 cursor-pointer overflow-hidden transition-colors duration-500"
             aria-label="Toggle Dark Mode"
           >
             <div className="absolute left-1 text-gold-500/50 scale-90"><Sun size={12} /></div>

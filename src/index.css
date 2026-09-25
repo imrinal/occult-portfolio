@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Caacupe+One&family=Poppins:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -11,8 +10,9 @@
   --color-gold-500: #d97706;
   --color-gold-400: #fbbf24;
   
-  --color-silver-300: #d1d5db;
-  --color-silver-100: #f3f4f6;
+  /* Off-whites to prevent harsh pure white */
+  --color-silver-300: #cbd5e1;
+  --color-silver-100: #f1f5f9;
 }
 
 @layer base {
@@ -20,20 +20,18 @@
     scroll-behavior: smooth;
   }
   body {
-    font-family: 'Poppins', sans-serif;
-    @apply bg-slate-50 text-slate-900 transition-colors duration-500 ease-in-out;
-    background-image: radial-gradient(#d1d5db 1px, transparent 1px);
-    background-size: 40px 40px;
+    font-family: 'Inter', sans-serif;
+    /* Clean, smooth background - NO dots */
+    @apply bg-slate-100 text-slate-800 transition-colors duration-500 ease-in-out;
   }
   
   .dark body {
-    @apply bg-[#050505] text-silver-100;
-    background-image: radial-gradient(#1f2937 1px, transparent 1px);
-    background-size: 40px 40px;
+    @apply bg-[#030303] text-silver-100;
   }
 
   .font-brand {
-    font-family: 'Caacupe One', sans-serif;
+    font-family: 'Bungee', cursive;
+    font-weight: 400;
   }
 }
 
@@ -45,12 +43,12 @@
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(217, 119, 6, 0.6); /* Gold-500 */
+  background: rgba(217, 119, 6, 0.6); 
   border-radius: 9999px;
   transition: background 0.3s ease;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(251, 191, 36, 0.9); /* Gold-400 on hover */
+  background: rgba(251, 191, 36, 0.9); 
 }
 
 /* Advanced GPU-Accelerated Animation Utilities */
