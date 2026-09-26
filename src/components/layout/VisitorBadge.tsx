@@ -3,32 +3,38 @@ import { Activity } from 'lucide-react';
 
 export const VisitorBadge: React.FC = () => {
   const [count, setCount] = useState<number | null>(null);
-  const BASE_OFFSET = 259; // Adding this so 1 visit starts at 250 (1 + 249 = 250)
+  const BASE_OFFSET = 259; 
 
   useEffect(() => {
     const trackVisitor = async () => {
       try {
-        // Check if this browser session has already been counted to prevent self-inflation on refresh
         const hasCountedSession = sessionStorage.getItem('portfolio_session_counted');
         
         let endpoint = 'https://api.counterapi.dev/v1/mrinal-portfolio/visits';
+        
         if (!hasCountedSession) {
           endpoint = 'https://api.counterapi.dev/v1/mrinal-portfolio/visits/up';
           sessionStorage.setItem('portfolio_session_counted', 'true');
         }
 
-        const response = await fetch(endpoint);
+        let response = await fetch(endpoint);
+        
+        // If the endpoint hasn't been initialized on CounterAPI yet, fetch/initialize it
+        if (!response.ok) {
+          response = await fetch('https://api.counterapi.dev/v1/mrinal-portfolio/visits');
+          if (!response.ok) throw new Error("CounterAPI endpoint not initialized");
+        }
+
         const data = await response.json();
         
         if (data && typeof data.count === 'number') {
           setCount(data.count + BASE_OFFSET);
         } else {
-          // Fallback if API needs initialization
           setCount(BASE_OFFSET + 1);
         }
       } catch (error) {
         console.error("Failed to sync visitor count:", error);
-        // Fallback local increment if offline
+        // Fallback local increment if offline or blocked by ad-blockers
         const local = parseInt(localStorage.getItem('fallback_visits') || '250', 10) + 1;
         localStorage.setItem('fallback_visits', local.toString());
         setCount(local);
@@ -39,6 +45,7 @@ export const VisitorBadge: React.FC = () => {
   }, []);
 
   return (
+    // 'hidden md:flex' ensures it's hidden on mobile, but useEffect above still runs on all devices!
     <div className="fixed bottom-6 right-6 z-40 hidden md:flex items-center gap-3 px-4 py-2.5 rounded-2xl bg-white/70 dark:bg-[#0a0a0a]/85 backdrop-blur-2xl border border-emerald-500/30 shadow-[0_10px_30px_rgba(0,0,0,0.3)] transition-all duration-300 hover:scale-105 group pointer-events-auto">
       
       {/* Live Pulsing Indicator */}
