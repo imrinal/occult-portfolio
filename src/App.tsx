@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Navbar } from './components/layout/Navbar';
 import { Preloader } from './components/layout/Preloader';
+import { VisitorBadge } from './components/layout/VisitorBadge'; // <-- Import here
 import { Hero } from './components/sections/Hero';
 import { About } from './components/sections/About';
 import { Skills } from './components/sections/Skills';
@@ -35,6 +36,9 @@ function App() {
           <Contact />
         </main>
       )}
+
+      {/* Floating Live Visitor Counter (Desktop Only) */}
+      <VisitorBadge />
     </div>
   );
 }
