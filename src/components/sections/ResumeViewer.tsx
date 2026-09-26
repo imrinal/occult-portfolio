@@ -31,7 +31,7 @@ export const ResumeViewer: React.FC = () => {
         </a>
       </ScrollReveal>
 
-      {/* A4-Proportioned Centered Container */}
+      {/* A4-Proportioned Centered Container with Full Native PDF Controls Enabled */}
       <ScrollReveal delay={100} className="w-full flex-1 flex flex-col items-center justify-center min-h-[calc(100vh-160px)]">
         <GlassCard className="w-full max-w-3xl h-full p-2.5 md:p-3 border-emerald-500/20 bg-white/70 dark:bg-[#0a0a0a]/80 backdrop-blur-3xl overflow-hidden shadow-2xl relative flex flex-col">
           
@@ -39,7 +39,7 @@ export const ResumeViewer: React.FC = () => {
           
           <div className="w-full flex-1 rounded-xl overflow-hidden relative z-10 bg-slate-900/40 border border-white/10 shadow-inner">
             <iframe 
-              src="/Mrinal_Paul_Resume.pdf#toolbar=0&view=FitH" 
+              src="/Mrinal_Paul_Resume.pdf" 
               className="w-full h-full border-none block"
               title="Mrinal Paul Resume"
             />
