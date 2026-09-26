@@ -20,9 +20,6 @@ function App() {
         <Education />
         <Contact />
       </main>
-      <footer className="py-8 text-center text-xs text-slate-500 dark:text-silver-300 font-light border-t border-slate-200 dark:border-white/10 mt-12">
-        © {new Date().getFullYear()} Mrinal Paul. Architected with React, TypeScript & Tailwind CSS.
-      </footer>
     </div>
   );
 }
