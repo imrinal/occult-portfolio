@@ -1,10 +1,13 @@
-import { useState, useEffect, useRef } from 'react';
-import { User, Code2, Briefcase, FolderGit2, GraduationCap, Send, Sun, Moon, Home, Download } from 'lucide-react';
-
-// IMPORT YOUR ICON HERE (Adjust the path if it's directly in src like '../../icon.png')
+import React, { useState, useEffect, useRef } from 'react';
+import { User, Code2, Briefcase, FolderGit2, GraduationCap, Send, Sun, Moon, Home, FileText } from 'lucide-react';
 import iconLogo from '../../assets/icon.png';
 
-export const Navbar = () => {
+interface NavbarProps {
+  onViewResume?: () => void;
+  onNavigateHome?: () => void;
+}
+
+export const Navbar: React.FC<NavbarProps> = ({ onViewResume, onNavigateHome }) => {
   const [darkMode, setDarkMode] = useState(() => {
     if (typeof window !== 'undefined') {
       const savedTheme = localStorage.getItem('theme');
@@ -61,6 +64,19 @@ export const Navbar = () => {
     { name: 'Contact', href: '#contact', icon: Send, hideOnMobile: false },
   ];
 
+  const handleNavClick = (linkName: string, href: string) => {
+    setActive(linkName);
+    if (onNavigateHome) onNavigateHome();
+    
+    // Smooth scroll after switching back home if needed
+    if (href.startsWith('#')) {
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
+
   return (
     <header className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-max max-w-[96vw]">
       <div 
@@ -85,7 +101,6 @@ export const Navbar = () => {
           }}
         />
 
-        {/* USE THE IMPORTED VARIABLE HERE */}
         <div className="relative z-10 hidden md:flex items-center gap-2 pl-2 pr-3.5 border-r border-slate-300 dark:border-white/10">
           <img 
             src={iconLogo} 
@@ -106,7 +121,10 @@ export const Navbar = () => {
               <a
                 key={link.name}
                 href={link.href}
-                onClick={() => setActive(link.name)}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleNavClick(link.name, link.href);
+                }}
                 className={`relative group/link flex items-center justify-center p-2.5 sm:px-3.5 sm:py-2.5 rounded-full transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] overflow-hidden
                   ${link.hideOnMobile ? 'hidden md:flex' : 'flex'}
                   ${isActive 
@@ -132,16 +150,17 @@ export const Navbar = () => {
         </nav>
 
         <div className="relative z-10 flex items-center gap-1.5 sm:gap-2.5 pl-1.5 sm:pl-3 border-l border-slate-300 dark:border-white/10">
-          <a
-            href="/resume.pdf"
-            download
-            className="group/btn flex items-center justify-center p-2.5 sm:px-3.5 sm:py-2.5 rounded-full bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-700 dark:text-emerald-400 transition-all duration-300 shadow-sm"
-            title="Download Resume"
-            aria-label="Download Resume"
+          <button
+            onClick={() => {
+              if (onViewResume) onViewResume();
+            }}
+            className="group/btn flex items-center justify-center p-2.5 sm:px-3.5 sm:py-2.5 rounded-full bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-700 dark:text-emerald-400 transition-all duration-300 shadow-sm cursor-pointer"
+            title="View Resume"
+            aria-label="View Resume"
           >
-            <Download size={18} strokeWidth={2.5} className="transition-transform group-hover/btn:-translate-y-0.5" />
+            <FileText size={18} strokeWidth={2.5} className="transition-transform group-hover/btn:-translate-y-0.5" />
             <span className="hidden md:block text-xs sm:text-sm font-semibold ml-1.5">Resume</span>
-          </a>
+          </button>
 
           <button 
             onClick={() => setDarkMode(!darkMode)}
