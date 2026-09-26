@@ -36,22 +36,33 @@ export const Navbar: React.FC<NavbarProps> = ({ onViewResume, onNavigateHome }) 
     }
   }, [darkMode]);
 
+  // Robust IntersectionObserver to auto-update active state on scroll
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const id = entry.target.getAttribute('id');
-            const navItem = navLinks.find(link => link.href === `#${id}`);
-            if (navItem) setActive(navItem.name);
+    const handleIntersect: IntersectionObserverCallback = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute('id');
+          const navItem = navLinks.find(link => link.href === `#${id}`);
+          if (navItem) {
+            setActive(navItem.name);
           }
-        });
-      },
-      { rootMargin: '-40% 0px -40% 0px', threshold: 0 }
-    );
+        }
+      });
+    };
 
-    document.querySelectorAll('section[id]').forEach((section) => observer.observe(section));
-    return () => observer.disconnect();
+    const observer = new IntersectionObserver(handleIntersect, {
+      root: null,
+      rootMargin: '-20% 0px -60% 0px',
+      threshold: 0
+    });
+
+    const sections = document.querySelectorAll('section[id]');
+    sections.forEach((section) => observer.observe(section));
+
+    return () => {
+      sections.forEach((section) => observer.unobserve(section));
+      observer.disconnect();
+    };
   }, []);
 
   const navLinks = [
@@ -68,7 +79,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onViewResume, onNavigateHome }) 
     setActive(linkName);
     if (onNavigateHome) onNavigateHome();
     
-    // Smooth scroll after switching back home if needed
+    // Smooth scroll to target section
     if (href.startsWith('#')) {
       const element = document.querySelector(href);
       if (element) {
@@ -152,6 +163,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onViewResume, onNavigateHome }) 
         <div className="relative z-10 flex items-center gap-1.5 sm:gap-2.5 pl-1.5 sm:pl-3 border-l border-slate-300 dark:border-white/10">
           <button
             onClick={() => {
+              setActive(''); // Deselect section navs when viewing resume
               if (onViewResume) onViewResume();
             }}
             className="group/btn flex items-center justify-center p-2.5 sm:px-3.5 sm:py-2.5 rounded-full bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-700 dark:text-emerald-400 transition-all duration-300 shadow-sm cursor-pointer"
